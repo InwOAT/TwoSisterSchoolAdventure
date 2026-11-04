@@ -1,0 +1,697 @@
+[gd_scene load_steps=24 format=3 uid="uid://lvl07canteen001"]
+
+[ext_resource type="Script" path="res://scripts/level_7.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_7_canteen.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Script" path="res://scripts/interactable_item.gd" id="8_item"]
+[ext_resource type="Texture2D" path="res://assets/items/item_watering_can.png" id="9_cantex"]
+[ext_resource type="Texture2D" path="res://assets/environment/canteen_stalls.png" id="10_stalls"]
+[ext_resource type="Texture2D" path="res://assets/environment/canteen_tables.png" id="11_tables"]
+[ext_resource type="Texture2D" path="res://assets/environment/recycle_bins.png" id="12_bins"]
+[ext_resource type="PackedScene" path="res://scenes/walking_villager.tscn" id="13_walker"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_vendor.png" id="14_vendor"]
+[ext_resource type="Texture2D" path="res://assets/environment/maple_ladder.png" id="15_ladder_tex"]
+[ext_resource type="Script" path="res://scripts/maple_ladder.gd" id="16_ladder_script"]
+[ext_resource type="Texture2D" path="res://assets/portals/bus_door_light_circle.png" id="17_light_circle"]
+[ext_resource type="Texture2D" path="res://assets/portals/bus_door_vertical_beam.png" id="18_light_beam"]
+[ext_resource type="PackedScene" path="res://scenes/ui/waste_sorting_modal.tscn" id="19_waste_modal"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 35.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone_stall"]
+size = Vector2(260, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone_recycle"]
+size = Vector2(240, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone_vent"]
+size = Vector2(200, 140)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
+bg_color = Color(0.08, 0.12, 0.22, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.4, 0.85, 1, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.08, 0.12, 0.22, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.3, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_box"]
+bg_color = Color(0.12, 0.18, 0.28, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.75, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_canteen_menu"]
+bg_color = Color(0.08, 0.14, 0.22, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.85, 0.35, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_header"]
+bg_color = Color(0.18, 0.35, 0.22, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.5, 1, 0.65, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_healthy"]
+bg_color = Color(0.12, 0.32, 0.22, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.4, 0.95, 0.65, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_healthy_hover"]
+bg_color = Color(0.18, 0.45, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.65, 1, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_junk"]
+bg_color = Color(0.32, 0.18, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.65, 0.35, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_junk_hover"]
+bg_color = Color(0.48, 0.25, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.82, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mezzanine"]
+bg_color = Color(0.36, 0.22, 0.12, 0.98)
+border_width_top = 3
+border_color = Color(0.9, 0.72, 0.38, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_building_wall"]
+bg_color = Color(0.11, 0.15, 0.24, 0.94)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 1
+border_color = Color(0.68, 0.54, 0.35, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_door_locked"]
+bg_color = Color(0.22, 0.12, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.4, 0.35, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_door_unlocked"]
+bg_color = Color(0.12, 0.26, 0.18, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.95, 0.65, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vent_grill"]
+bg_color = Color(0.06, 0.12, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.85, 1, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mezzanine_floor"]
+size = Vector2(250, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ladder"]
+size = Vector2(40, 185)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vent_glow"]
+radius = 46.0
+
+[node name="Level7" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="BackgroundLeft" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="BackgroundRight" type="Sprite2D" parent="."]
+position = Vector2(1500, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(900, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1780, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="PortalBackClassroom" parent="." instance=ExtResource("5_portal")]
+position = Vector2(80, 640)
+target_level = 6
+target_spawn_x = 1100.0
+portal_name = "ย้อนกลับห้องเรียน"
+
+[node name="CanteenStallsArt" type="Sprite2D" parent="."]
+position = Vector2(430, 490)
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("10_stalls")
+
+[node name="ZoneLunchStall" type="Area2D" parent="."]
+position = Vector2(430, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneLunchStall"]
+shape = SubResource("RectangleShape2D_zone_stall")
+
+[node name="AuntieCookSprite" type="Sprite2D" parent="ZoneLunchStall"]
+position = Vector2(0, -50)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("14_vendor")
+
+[node name="AuntieNameLabel" type="Label" parent="ZoneLunchStall"]
+offset_left = -70.0
+offset_top = -105.0
+offset_right = 70.0
+offset_bottom = -85.0
+theme_override_colors/font_color = Color(1, 0.95, 0.6, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "ป้ามาลัย แม่ครัวใจดี"
+horizontal_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="ZoneLunchStall"]
+offset_left = -85.0
+offset_top = -132.0
+offset_right = 85.0
+offset_bottom = -110.0
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "💡 เควสอาหาร 5 หมู่ [!]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="ZoneLunchStall"]
+visible = false
+offset_left = -120.0
+offset_top = -162.0
+offset_right = 120.0
+offset_bottom = -136.0
+theme_override_colors/font_color = Color(0.4, 1, 0.6, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
+text = "[E / Shift] ซื้ออาหารกลางวัน 5 หมู่ (35 ฿)"
+horizontal_alignment = 1
+
+[node name="LunchStallArea" type="Panel" parent="."]
+offset_left = 215.0
+offset_top = 300.0
+offset_right = 645.0
+offset_bottom = 475.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_canteen_menu")
+
+[node name="Label" type="Label" parent="LunchStallArea"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_header")
+text = "🍱 เคาน์เตอร์อาหารกลางวัน (เลือกอาหารที่มีประโยชน์)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnHealthy" type="Button" parent="LunchStallArea"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 42.0
+offset_right = -16.0
+offset_bottom = 100.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.92, 1, 0.95, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_healthy_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_healthy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_healthy")
+text = "🥗 1. ข้าวผัดไข่ผักรวม + ส้มสายน้ำผึ้ง (35 ฿) [กด 1]
+    ⭐ สารอาหารครบ 5 หมู่ ดีต่อสุขภาพ!"
+
+[node name="BtnJunk" type="Button" parent="LunchStallArea"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 108.0
+offset_right = -16.0
+offset_bottom = 162.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.88, 0.85, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_junk_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_junk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_junk")
+text = "🍟 2. ขนมกรุบกรอบ + น้ำอัดลม (45 ฿) [กด 2]
+    ⚠️ เกินงบค่าขนม และไม่มีสารอาหาร"
+
+[node name="CanteenTablesArt" type="Sprite2D" parent="."]
+position = Vector2(880, 565)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("11_tables")
+
+[node name="RecycleBinsArt" type="Sprite2D" parent="."]
+position = Vector2(1180, 560)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("12_bins")
+
+[node name="ZoneRecycle" type="Area2D" parent="."]
+position = Vector2(1180, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneRecycle"]
+shape = SubResource("RectangleShape2D_zone_recycle")
+
+[node name="QuestBadge" type="Label" parent="ZoneRecycle"]
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "💡 เควสคัดแยกขยะ [!]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="ZoneRecycle"]
+visible = false
+offset_left = -115.0
+offset_top = -110.0
+offset_right = 115.0
+offset_bottom = -85.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
+text = "[E / Shift] คัดแยกขยะ 3 สี & ส่งถาดอาหาร"
+horizontal_alignment = 1
+
+[node name="RecycleStation" type="Panel" parent="."]
+offset_left = 1070.0
+offset_top = 370.0
+offset_right = 1290.0
+offset_bottom = 475.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_box")
+
+[node name="Label" type="Label" parent="RecycleStation"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 210.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_size = 11
+text = "♻️ จุดคัดแยกขยะ 3 สี"
+horizontal_alignment = 1
+
+[node name="BtnSort" type="Button" parent="RecycleStation"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 208.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_font_size = 11
+text = "แยกขยะ 3 สี & เก็บถาด\n(เศษอาหาร / ขวด / ทั่วไป)"
+
+[node name="Building20" type="Node2D" parent="."]
+position = Vector2(1540, 540)
+
+[node name="WallPanel" type="Panel" parent="Building20"]
+offset_left = -110.0
+offset_top = -95.0
+offset_right = 130.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_building_wall")
+
+[node name="BuildingTitle" type="Label" parent="Building20"]
+offset_left = -100.0
+offset_top = -85.0
+offset_right = 120.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_size = 12
+text = "🏢 อาคาร 20: ห้องเก็บพัสดุ"
+horizontal_alignment = 1
+
+[node name="DoorPanel" type="Panel" parent="Building20"]
+offset_left = -40.0
+offset_top = -48.0
+offset_right = 40.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_door_locked")
+
+[node name="DoorLabel" type="Label" parent="Building20/DoorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_size = 11
+text = "🚪 ประตูพัสดุ
+[🔒 ล็อก]"
+horizontal_alignment = 1
+
+[node name="BtnPeemaiCrawl" type="Button" parent="Building20"]
+visible = false
+offset_left = -80.0
+offset_top = 25.0
+offset_right = 80.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(1, 0.65, 0.95, 1)
+theme_override_font_size = 11
+text = "น้องปีใหม่มุดช่องลม 🚪"
+
+[node name="ItemWateringCan" type="Area2D" parent="Building20"]
+visible = false
+position = Vector2(0, 52)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_item")
+item_name = "บัวรดน้ำ"
+pickup_message = "หยิบ 'บัวรดน้ำ' จากห้องพัสดุแล้ว! เตรียมนำไปรดแปลงดอกไม้ที่สวนเกษตรกันเถอะ!"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building20/ItemWateringCan"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="Building20/ItemWateringCan"]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("9_cantex")
+
+[node name="PromptLabel" type="Label" parent="Building20/ItemWateringCan"]
+offset_left = -70.0
+offset_top = -42.0
+offset_right = 70.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 0.4, 1)
+theme_override_font_size = 11
+text = "[E/Shift] หยิบบัวรดน้ำ"
+horizontal_alignment = 1
+
+[node name="MezzaninePlatform" type="StaticBody2D" parent="."]
+position = Vector2(1540, 440)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MezzaninePlatform"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_mezzanine_floor")
+one_way_collision = true
+
+[node name="PlatformBeam" type="Panel" parent="MezzaninePlatform"]
+offset_left = -110.0
+offset_top = -6.0
+offset_right = 130.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mezzanine")
+
+[node name="MezzanineLabel" type="Label" parent="MezzaninePlatform"]
+offset_left = -100.0
+offset_top = -24.0
+offset_right = 120.0
+offset_bottom = -6.0
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_size = 10
+text = "🪜 ชั้นลอยอาคาร 20 (ช่องระบายอากาศ)"
+horizontal_alignment = 1
+
+[node name="LadderToMezzanine" type="Area2D" parent="."]
+position = Vector2(1410, 540)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("16_ladder_script")
+ladder_height = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderToMezzanine"]
+shape = SubResource("RectangleShape2D_ladder")
+
+[node name="Sprite2D" type="Sprite2D" parent="LadderToMezzanine"]
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("15_ladder_tex")
+
+[node name="LadderLabel" type="Label" parent="LadderToMezzanine"]
+offset_left = -50.0
+offset_top = 80.0
+offset_right = 50.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(1, 0.95, 0.6, 1)
+theme_override_font_size = 10
+text = "ไต่บันได [↑]"
+horizontal_alignment = 1
+
+[node name="ZoneStorageVent" type="Area2D" parent="."]
+position = Vector2(1550, 435)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneStorageVent"]
+shape = SubResource("CircleShape2D_vent_glow")
+
+[node name="VentMarker" type="Node2D" parent="ZoneStorageVent"]
+
+[node name="VerticalBeam" type="Sprite2D" parent="ZoneStorageVent/VentMarker"]
+position = Vector2(0, -60)
+scale = Vector2(0.35, 0.7)
+texture = ExtResource("18_light_beam")
+
+[node name="LightCircle" type="Sprite2D" parent="ZoneStorageVent/VentMarker"]
+position = Vector2(0, 0)
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("17_light_circle")
+
+[node name="VentGrill" type="Panel" parent="ZoneStorageVent/VentMarker"]
+offset_left = -32.0
+offset_top = -55.0
+offset_right = 32.0
+offset_bottom = -20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vent_grill")
+
+[node name="GrillLabel" type="Label" parent="ZoneStorageVent/VentMarker/VentGrill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 1, 1)
+theme_override_font_size = 10
+text = "💨 ช่องลม"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="ZoneStorageVent"]
+offset_left = -85.0
+offset_top = -88.0
+offset_right = 85.0
+offset_bottom = -66.0
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "💡 มุดช่องลมห้องพัสดุ [!]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="ZoneStorageVent"]
+visible = false
+offset_left = -140.0
+offset_top = -118.0
+offset_right = 140.0
+offset_bottom = -93.0
+theme_override_colors/font_color = Color(1, 0.7, 0.95, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
+text = "[E / Shift] ให้น้องปีใหม่มุดช่องลม"
+horizontal_alignment = 1
+
+[node name="WalkingStudent1" parent="." instance=ExtResource("13_walker")]
+position = Vector2(650, 580)
+villager_name = "นักเรียนทานอาหาร"
+texture_path = "res://assets/characters/npcs/npc_student.png"
+walk_speed = 36.0
+left_bound = 550.0
+right_bound = 800.0
+speech_dialogs = PackedStringArray("ก๋วยเตี๋ยวร้านนี้อร่อยมาก!", "อย่าลืมทานผักผลไม้นะ", "วันนี้มีส้มหวานชื่นใจ")
+
+[node name="WalkingStudent2" parent="." instance=ExtResource("13_walker")]
+position = Vector2(980, 580)
+villager_name = "เพื่อนเก็บถาดอาหาร"
+texture_path = "res://assets/characters/npcs/npc_girl_student.png"
+walk_speed = 40.0
+left_bound = 880.0
+right_bound = 1150.0
+speech_dialogs = PackedStringArray("ทานเสร็จต้องแยกขยะนะ!", "ถังเหลืองสำหรับขวดพลาสติก", "โรงอาหารสะอาดน่าอยู่")
+
+[node name="WalkingStudent3" parent="." instance=ExtResource("13_walker")]
+position = Vector2(1330, 580)
+villager_name = "เพื่อนนักเรียนชั้น ป.3"
+texture_path = "res://assets/characters/npcs/npc_boy_student.png"
+walk_speed = 42.0
+left_bound = 1240.0
+right_bound = 1430.0
+speech_dialogs = PackedStringArray("ห้องพัสดุ 20 ประตูปิดอยู่", "ใครตัวเล็กมุดช่องลมได้บ้างนะ", "แปลงเกษตรหลังโรงเรียนสวยมาก")
+
+[node name="PortalGarden" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1720, 640)
+target_level = 8
+target_spawn_x = 100.0
+portal_name = "ออกไปแปลงเกษตรและสวนโรงเรียน"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(120, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(80, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]
+
+[node name="WasteSortingModal" parent="." instance=ExtResource("19_waste_modal")]

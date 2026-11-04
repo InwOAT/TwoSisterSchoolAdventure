@@ -1,0 +1,209 @@
+[gd_scene load_steps=15 format=3 uid="uid://lvl05school001"]
+
+[ext_resource type="Script" path="res://scripts/level_5.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_5_school_gate.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Script" path="res://scripts/npc_character.gd" id="8_npc"]
+[ext_resource type="Texture2D" path="res://assets/environment/guard_booth.png" id="9_booth"]
+[ext_resource type="Texture2D" path="res://assets/environment/school_gate_arch.png" id="10_arch"]
+[ext_resource type="Texture2D" path="res://assets/items/pencil_box_item.png" id="11_pencil"]
+[ext_resource type="PackedScene" path="res://scenes/walking_villager.tscn" id="12_walker"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 30.0
+
+[node name="Level5" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="BackgroundLeft" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="BackgroundRight" type="Sprite2D" parent="."]
+position = Vector2(1500, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(900, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1780, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="SchoolGateArch" type="Sprite2D" parent="."]
+position = Vector2(750, 420)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("10_arch")
+
+[node name="GuardBooth" type="Sprite2D" parent="."]
+position = Vector2(300, 520)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("9_booth")
+
+[node name="GuardNPC" type="Area2D" parent="."]
+position = Vector2(370, 575)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_npc")
+npc_name = "ลุงบุญมี รปภ."
+portrait_path = "res://assets/characters/npcs/npc_guard.png"
+npc_sprite_path = "res://assets/characters/npcs/npc_guard.png"
+quest_id = "q_school_wai"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GuardNPC"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="PromptLabel" type="Label" parent="GuardNPC"]
+visible = false
+offset_left = -80.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(1, 0.95, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ขอกุญแจ & ไหว้ลุง รปภ."
+horizontal_alignment = 1
+
+[node name="TeacherNPC" type="Area2D" parent="."]
+position = Vector2(820, 575)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_npc")
+npc_name = "ครูสุณี (ครูเวร)"
+portrait_path = "res://assets/characters/npcs/npc_teacher.png"
+npc_sprite_path = "res://assets/characters/npcs/npc_teacher.png"
+quest_id = "q_school_wai"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeacherNPC"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="PromptLabel" type="Label" parent="TeacherNPC"]
+visible = false
+offset_left = -80.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(1, 0.95, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ยกมือไหว้ครูเวร"
+horizontal_alignment = 1
+
+[node name="ItemPencilBox" type="Area2D" parent="."]
+position = Vector2(1040, 620)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPencilBox"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="ItemPencilBox"]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("11_pencil")
+
+[node name="PromptLabel" type="Label" parent="ItemPencilBox"]
+offset_left = -50.0
+offset_top = -35.0
+offset_right = 50.0
+offset_bottom = -15.0
+theme_override_colors/font_color = Color(1, 1, 0.4, 1)
+theme_override_font_size = 10
+text = "✨ กล่องดินสอสี"
+horizontal_alignment = 1
+
+[node name="LittleStudentNPC" type="Area2D" parent="."]
+position = Vector2(1150, 575)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_npc")
+npc_name = "น้อง ป.1"
+portrait_path = "res://assets/characters/npcs/npc_kindergarten.png"
+npc_sprite_path = "res://assets/characters/npcs/npc_kindergarten.png"
+quest_id = "q_school_pencil"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LittleStudentNPC"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="PromptLabel" type="Label" parent="LittleStudentNPC"]
+visible = false
+offset_left = -80.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(1, 0.95, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] คุยกับน้อง ป.1"
+horizontal_alignment = 1
+
+[node name="WalkingStudent1" parent="." instance=ExtResource("12_walker")]
+position = Vector2(540, 612)
+villager_name = "ด.ช. ภูผา (ป.2)"
+sprite_texture_path = "res://assets/characters/npcs/npc_boy_student.png"
+patrol_distance = 75.0
+walk_speed = 40.0
+ambient_dialog = "สวัสดีตอนเช้าครับ! วันนี้เข้าแถวตรงเวลา ได้ยินว่ามีตอบคำถามด้วยนะ! 🎒"
+
+[node name="WalkingStudent2" parent="." instance=ExtResource("12_walker")]
+position = Vector2(960, 612)
+villager_name = "ด.ญ. น้ำใส (ป.2)"
+sprite_texture_path = "res://assets/characters/npcs/npc_girl_student.png"
+patrol_distance = 85.0
+walk_speed = 38.0
+ambient_dialog = "สวัสดีจ้ะของขวัญ ปีใหม่! ตื่นเต้นจัง วันนี้มีวิชาศิลปะและคาบเรียนหรรษาด้วย 🎨"
+
+[node name="WalkingStudent3" parent="." instance=ExtResource("12_walker")]
+position = Vector2(1450, 612)
+villager_name = "ด.ช. ก้อง (หัวหน้าห้อง ป.2)"
+sprite_texture_path = "res://assets/characters/npcs/npc_student.png"
+patrol_distance = 80.0
+walk_speed = 46.0
+ambient_dialog = "รีบนำกุญแจและสมุดเช็คชื่อขึ้นห้องเรียน ป.2/1 กัน! คุณครูมาถึงแล้วนะ 📚"
+
+[node name="PortalClassroom" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1720, 640)
+target_level = 6
+target_spawn_x = 100.0
+portal_name = "เข้าสู่อาคารเรียน ป.2/1"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(120, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(80, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

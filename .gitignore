@@ -1,0 +1,26 @@
+# Godot 4+ specific ignores
+.godot/
+*.translation
+
+# Mono / C# specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# Scratch & temporary logs/captures
+scratch/
+godot_capture_*.png
+godot_capture_*.png.import
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python / virtualenv
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/

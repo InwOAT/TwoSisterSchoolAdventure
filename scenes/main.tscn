@@ -1,0 +1,475 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmainmenu001"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_1_home.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/characters/khongkwan/spritesheet_maple.png" id="3_kk"]
+[ext_resource type="Texture2D" path="res://assets/characters/peemai/spritesheet_maple.png" id="4_pm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_banner"]
+bg_color = Color(0.07, 0.1, 0.19, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color(1, 0.82, 0.34, 0.95)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+content_margin_left = 24.0
+content_margin_top = 14.0
+content_margin_right = 24.0
+content_margin_bottom = 14.0
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_char_stage"]
+bg_color = Color(0.08, 0.12, 0.22, 0.8)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.8, 0.32, 0.9)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stage_floor"]
+bg_color = Color(0.18, 0.38, 0.22, 0.92)
+border_width_top = 3
+border_color = Color(0.48, 0.85, 0.35, 0.95)
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shadow"]
+bg_color = Color(0.02, 0.04, 0.08, 0.45)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bubble"]
+bg_color = Color(0.98, 0.98, 1, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.78, 0.25, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_start"]
+bg_color = Color(0.92, 0.52, 0.12, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(1, 0.92, 0.55, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_start_hover"]
+bg_color = Color(1, 0.62, 0.18, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(1, 0.98, 0.82, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_controls"]
+bg_color = Color(0.16, 0.46, 0.78, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.7, 0.9, 1, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_quit"]
+bg_color = Color(0.68, 0.2, 0.3, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.72, 0.78, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_controls_modal"]
+bg_color = Color(0.08, 0.11, 0.19, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color(1, 0.82, 0.34, 0.95)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 14
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.07, 0.14, 0.38)
+
+[node name="TitleBanner" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -460.0
+offset_top = 28.0
+offset_right = 460.0
+offset_bottom = 158.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_title_banner")
+
+[node name="TitleBox" type="VBoxContainer" parent="TitleBanner"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleThai" type="Label" parent="TitleBanner/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_font_size = 26
+text = "🎒 การผจญภัยไปโรงเรียนของพี่ของขวัญและน้องปีใหม่ 🎒"
+horizontal_alignment = 1
+
+[node name="TitleEng" type="Label" parent="TitleBanner/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_size = 16
+text = "Khongkwan & Peemai's School Adventure"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="TitleBanner/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.92, 1, 1)
+theme_override_font_size = 13
+text = "✨ 2D Side-Scrolling Co-op Puzzle Adventure (สไตล์ MapleStory M) ✨"
+horizontal_alignment = 1
+
+[node name="BtnAudio" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 28.0
+offset_right = -26.0
+offset_bottom = 72.0
+grow_horizontal = 0
+focus_mode = 0
+tooltip_text = "เปิด/ปิดเสียง (Sound Toggle)"
+theme_override_font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_start_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_controls")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_controls")
+text = "🔊"
+
+[node name="CharacterStage" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -140.0
+offset_right = 380.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_char_stage")
+
+[node name="StageFloor" type="Panel" parent="CharacterStage"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_stage_floor")
+
+[node name="StageHint" type="Label" parent="CharacterStage"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.98, 0.72, 0.85)
+theme_override_font_size = 11
+text = "✨ แตะหรือคลิกที่ตัวละคร เพื่อกระโดดเล่นด้วยกัน! ✨"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Characters" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -140.0
+offset_right = 380.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="ShadowKhongkwan" type="Panel" parent="Characters"]
+custom_minimum_size = Vector2(50, 12)
+layout_mode = 0
+offset_left = 220.0
+offset_top = 224.0
+offset_right = 270.0
+offset_bottom = 236.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_shadow")
+
+[node name="ShadowPeemai" type="Panel" parent="Characters"]
+custom_minimum_size = Vector2(44, 10)
+layout_mode = 0
+offset_left = 340.0
+offset_top = 226.0
+offset_right = 384.0
+offset_bottom = 236.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_shadow")
+
+[node name="SpriteKhongkwan" type="Sprite2D" parent="Characters"]
+position = Vector2(245, 160)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_kk")
+hframes = 8
+frame = 0
+
+[node name="SpritePeemai" type="Sprite2D" parent="Characters"]
+position = Vector2(362, 172)
+scale = Vector2(0.44, 0.44)
+texture = ExtResource("4_pm")
+hframes = 8
+frame = 0
+
+[node name="EmoteKhongkwan" type="Label" parent="Characters"]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 70.0
+offset_right = 310.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0.12, 0.15, 0.25, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_bubble")
+text = "ไปโรงเรียนกัน! 🎒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EmotePeemai" type="Label" parent="Characters"]
+visible = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 80.0
+offset_right = 420.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.12, 0.15, 0.25, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_bubble")
+text = "เย้ๆๆ! 💖"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Butterfly" type="Label" parent="Characters"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 130.0
+offset_right = 430.0
+offset_bottom = 160.0
+theme_override_font_size = 20
+text = "🦋"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SparklesRoot" type="Node2D" parent="Characters"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_top = -190.0
+offset_right = 195.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="BtnStart" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.99, 0.94, 1)
+theme_override_font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_start_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_start")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_start")
+text = "🚀 เริ่มการผจญภัย (Start Adventure)"
+
+[node name="BtnControls" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.99, 1, 1)
+theme_override_font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_start_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_controls")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_controls")
+text = "📖 วิธีการเล่น & จอยเกมส์ (Gamepad)"
+
+[node name="BtnQuit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.96, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_quit")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_quit")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_quit")
+text = "🚪 ออกจากเกม"
+
+[node name="ControlsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -470.0
+offset_top = -255.0
+offset_right = 470.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_controls_modal")
+
+[node name="VBox" type="VBoxContainer" parent="ControlsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = -28.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="ControlsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
+theme_override_font_size = 19
+text = "📖 ระบบการควบคุม (คีย์บอร์ด & Gamepad / จอยเกม)"
+horizontal_alignment = 1
+
+[node name="P1Info" type="Label" parent="ControlsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.82, 1)
+theme_override_font_size = 13
+text = "👧 พี่ของขวัญ (Player 1):\n  • คีย์บอร์ด: [A],[D] เดิน | [W] ปีนบันได/เข้าวาป | [Space] กระโดด | [E] คุย/ทำเควส | [Shiftซ้าย] วิ่งไว\n  • จอยสติ๊ก (Gamepad 1): อนาล็อกซ้าย/D-Pad เดิน | [A] กระโดด | [X] คุย/ไหว้ | [RT/LT] วิ่งไว"
+
+[node name="P2Info" type="Label" parent="ControlsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.88, 1, 1)
+theme_override_font_size = 13
+text = "👶 น้องปีใหม่ (Player 2):\n  • คีย์บอร์ด: [←],[→] เดิน | [↓] ก้มตัวมุดใต้โซฟา/ช่องแคบ | [Enter] กระโดด | [Shiftขวา] คุย/ทำเควส\n  • จอยสติ๊ก (Gamepad 2): อนาล็อกซ้าย/D-Pad เดิน | [D-Padล่าง] มุดแคบ | [A] กระโดด | [X] คุย/ไหว้"
+
+[node name="GamepadSpecial" type="Label" parent="ControlsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.45, 1)
+theme_override_font_size = 13
+text = "🎮 ฟังก์ชัน Gamepad พิเศษ:\n  • รองรับ 2 จอย (Co-op เล่น 2 คนพร้อมกันได้อย่างสมบูรณ์แบบ)\n  • กรณีมี 1 จอย: กดปุ่ม [RB] หรือ [Select/Back] เพื่อสลับตัวละคร | [LB] ปรึกษาใบ้คำ"
+
+[node name="SoloInfo" type="Label" parent="ControlsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.68, 1)
+theme_override_font_size = 13
+text = "💡 ปุ่มลัดบนคีย์บอร์ด:\n  • [Tab] สลับตัวละคร | [C] ปรึกษาคำใบ้ | [M] เปิดแผนผัง | [J] สมุดความดี | [1],[2],[3] แสดงอารมณ์"
+
+[node name="BtnCloseControls" type="Button" parent="ControlsPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -50.0
+offset_right = 85.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_quit")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_quit")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_quit")
+text = "✖ ปิดหน้าต่างนี้"

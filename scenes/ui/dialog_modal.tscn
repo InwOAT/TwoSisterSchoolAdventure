@@ -1,0 +1,169 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddialogmodal001"]
+
+[ext_resource type="Script" path="res://scripts/dialog_modal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/characters/khongkwan/sprite_happy.png" id="2_kk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dlg_panel"]
+bg_color = Color(0.07, 0.1, 0.18, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color(1, 0.82, 0.34, 0.95)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait_box"]
+bg_color = Color(0.13, 0.18, 0.3, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.82, 1, 0.85)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_speaker_badge"]
+bg_color = Color(0.82, 0.42, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.55, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 3.0
+content_margin_right = 12.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_next"]
+bg_color = Color(0.18, 0.58, 0.34, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.65, 1, 0.78, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 5.0
+content_margin_right = 16.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_next_hover"]
+bg_color = Color(0.24, 0.72, 0.42, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.85, 1, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 5.0
+content_margin_right = 16.0
+content_margin_bottom = 5.0
+
+[node name="DialogModal" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(920, 164)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -460.0
+offset_top = -188.0
+offset_right = 460.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dlg_panel")
+
+[node name="HBox" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 14.0
+offset_right = -18.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="PortraitFrame" type="PanelContainer" parent="Panel/HBox"]
+custom_minimum_size = Vector2(118, 118)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_box")
+
+[node name="PortraitTex" type="TextureRect" parent="Panel/HBox/PortraitFrame"]
+layout_mode = 2
+texture = ExtResource("2_kk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="TopRow" type="HBoxContainer" parent="Panel/HBox/VBox"]
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="Panel/HBox/VBox/TopRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.98, 0.9, 1)
+theme_override_font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_speaker_badge")
+text = "💬 ผู้พูด"
+
+[node name="Spacer" type="Control" parent="Panel/HBox/VBox/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HintTag" type="Label" parent="Panel/HBox/VBox/TopRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.82, 1, 0.85)
+theme_override_font_size = 11
+text = "กด [Space / E / ปุ่ม A] เพื่อไปต่อ"
+vertical_alignment = 1
+
+[node name="ContentLabel" type="Label" parent="Panel/HBox/VBox"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_font_size = 14
+text = "ข้อความสนทนา..."
+autowrap_mode = 3
+
+[node name="BtnClose" type="Button" parent="Panel/HBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_next_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_next")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_next")
+text = "ตกลง / ไปต่อ ▶ [Space]"

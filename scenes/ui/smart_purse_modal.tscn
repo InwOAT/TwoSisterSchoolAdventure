@@ -1,0 +1,512 @@
+[gd_scene load_steps=22 format=3 uid="uid://dsmartpurse001"]
+
+[ext_resource type="Script" path="res://scripts/smart_purse_modal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/items/item_wallet.png" id="2_wallet"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_coin_1.png" id="3_c1"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_coin_2.png" id="4_c2"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_coin_5.png" id="5_c5"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_coin_10.png" id="6_c10"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_banknote_20.png" id="7_n20"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_panel"]
+bg_color = Color(0.07, 0.11, 0.18, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 5
+border_color = Color(1, 0.82, 0.35, 0.95)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_gold"]
+bg_color = Color(0.82, 0.55, 0.12, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.6, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_teal"]
+bg_color = Color(0.12, 0.45, 0.55, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.65, 0.92, 1, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_target"]
+bg_color = Color(0.1, 0.34, 0.22, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.98, 0.65, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 3.0
+content_margin_right = 12.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_info"]
+bg_color = Color(0.11, 0.16, 0.25, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.55, 0.75, 0.55)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tray_recessed"]
+bg_color = Color(0.04, 0.07, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.42, 0.58, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_c1"]
+bg_color = Color(0.2, 0.28, 0.36, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.7, 0.82, 0.92, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_c2"]
+bg_color = Color(0.38, 0.3, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.95, 0.82, 0.35, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_c5"]
+bg_color = Color(0.25, 0.32, 0.42, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.65, 0.85, 1, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_c10"]
+bg_color = Color(0.42, 0.34, 0.12, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.9, 0.42, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_n20"]
+bg_color = Color(0.12, 0.4, 0.26, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.42, 0.95, 0.65, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_explain_box"]
+bg_color = Color(0.04, 0.08, 0.06, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.65, 0.45, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_confirm"]
+bg_color = Color(0.16, 0.56, 0.32, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.55, 1, 0.75, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cancel"]
+bg_color = Color(0.16, 0.2, 0.28, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.48, 0.58, 0.72, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[node name="SmartPurseModal" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.05, 0.09, 0.68)
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(850, 530)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -265.0
+offset_right = 425.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_panel")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderHBox" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TagPurse" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.98, 0.85, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_gold")
+text = "👛 กระเป๋าสตางค์อัจฉริยะ"
+
+[node name="TagRoute" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_teal")
+text = "🚌 รถเมล์สาย 12 • ค่าโดยสาร"
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TargetBadge" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.75, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_target")
+text = "🎯 ยอดที่ต้องจ่าย: 16 บาท"
+
+[node name="BtnClose" type="Button" parent="Panel/Margin/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(30, 26)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "✕"
+
+[node name="QuestCard" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_info")
+
+[node name="HBox" type="HBoxContainer" parent="Panel/Margin/VBox/QuestCard"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="WalletIcon" type="TextureRect" parent="Panel/Margin/VBox/QuestCard/HBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_wallet")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxText" type="VBoxContainer" parent="Panel/Margin/VBox/QuestCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/Margin/VBox/QuestCard/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
+theme_override_font_size = 15
+text = "ชำระค่าโดยสารนักเรียน 2 คน (คนละ 8 บาท)"
+
+[node name="SubTitleLabel" type="Label" parent="Panel/Margin/VBox/QuestCard/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.9, 0.98, 0.85)
+theme_override_font_size = 12
+text = "นับเหรียญรวมให้ได้ 16 บาทพอดี หรือจ่ายธนบัตร 20 บาทเพื่อรอรับเงินทอน 4 บาทจ้ะ!"
+
+[node name="TrayPanel" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tray_recessed")
+
+[node name="VBoxTray" type="VBoxContainer" parent="Panel/Margin/VBox/TrayPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TrayHeader" type="HBoxContainer" parent="Panel/Margin/VBox/TrayPanel/VBoxTray"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TrayTitle" type="Label" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_size = 13
+text = "🪙 เงินในถาดปัจจุบัน:"
+
+[node name="CurrentLabel" type="Label" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.45, 1)
+theme_override_font_size = 18
+text = "0 บาท"
+
+[node name="StatusBadge" type="Label" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+theme_override_font_size = 12
+text = "(ยังไม่ได้ใส่เงิน)"
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnUndo" type="Button" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+custom_minimum_size = Vector2(125, 28)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "↩️ ลบเหรียญล่าสุด"
+
+[node name="BtnReset" type="Button" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayHeader"]
+custom_minimum_size = Vector2(95, 28)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "🔄 ล้างถาด [R]"
+
+[node name="TrayScroll" type="ScrollContainer" parent="Panel/Margin/VBox/TrayPanel/VBoxTray"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TrayItems" type="HBoxContainer" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="EmptyPlaceholder" type="Label" parent="Panel/Margin/VBox/TrayPanel/VBoxTray/TrayScroll/TrayItems"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.75)
+theme_override_font_size = 12
+text = "คลิกเลือกเหรียญหรือธนบัตรด้านล่าง เพื่อนำเงินวางลงในถาด"
+
+[node name="CoinsPrompt" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 1)
+theme_override_font_size = 12
+text = "👇 เลือกเหรียญหรือธนบัตรใส่ถาด (คลิกหรือกดปุ่มตัวเลขบนคีย์บอร์ด):"
+
+[node name="CoinsGrid" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="BtnCoin1" type="Button" parent="Panel/Margin/VBox/CoinsGrid"]
+custom_minimum_size = Vector2(130, 68)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_c1")
+text = " 1 บาท\n [ 1 ]"
+icon = ExtResource("3_c1")
+expand_icon = true
+
+[node name="BtnCoin2" type="Button" parent="Panel/Margin/VBox/CoinsGrid"]
+custom_minimum_size = Vector2(130, 68)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_c2")
+text = " 2 บาท\n [ 2 ]"
+icon = ExtResource("4_c2")
+expand_icon = true
+
+[node name="BtnCoin5" type="Button" parent="Panel/Margin/VBox/CoinsGrid"]
+custom_minimum_size = Vector2(130, 68)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_c5")
+text = " 5 บาท\n [ 5 ]"
+icon = ExtResource("5_c5")
+expand_icon = true
+
+[node name="BtnCoin10" type="Button" parent="Panel/Margin/VBox/CoinsGrid"]
+custom_minimum_size = Vector2(130, 68)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_c10")
+text = " 10 บาท\n [ 0 ]"
+icon = ExtResource("6_c10")
+expand_icon = true
+
+[node name="BtnNote20" type="Button" parent="Panel/Margin/VBox/CoinsGrid"]
+custom_minimum_size = Vector2(145, 68)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n20")
+text = " 20 บาท\n [ N / 4 ]"
+icon = ExtResource("7_n20")
+expand_icon = true
+
+[node name="ExplanationBox" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_explain_box")
+
+[node name="FeedbackLabel" type="Label" parent="Panel/Margin/VBox/ExplanationBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.75, 1)
+theme_override_font_size = 12
+text = "💡 คำแนะนำ: เลือกเหรียญหรือธนบัตรใส่ถาดให้ได้ 16 บาท หรือจ่ายธนบัตร 20 บาทเพื่อรอรับเงินทอน 4 บาท"
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnConfirm" type="Button" parent="Panel/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(210, 42)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_confirm")
+text = "✅ ยืนยันจ่ายเงิน [Enter]"
+
+[node name="BtnCancel" type="Button" parent="Panel/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(130, 42)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "✕ ยกเลิก [Esc]"

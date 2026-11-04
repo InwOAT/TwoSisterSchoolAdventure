@@ -1,0 +1,162 @@
+[gd_scene load_steps=12 format=3 uid="uid://intextcoop001"]
+
+[ext_resource type="Script" path="res://scripts/interiors/interior_school_coop.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/interiors/bg_interior_school_coop.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="4_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="5_p2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_vendor.png" id="8_vendor"]
+[ext_resource type="Texture2D" path="res://assets/environment/interiors_3d/prop_coop_shelf.png" id="9_coop"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(140, 140)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="InteriorSchoolCoop" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(10, 360)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+rotation = 1.5708
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1270, 360)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+rotation = -1.5708
+
+[node name="CoopShelfProp" type="Sprite2D" parent="."]
+position = Vector2(980, 520)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("9_coop")
+
+[node name="StationaryArea" type="Area2D" parent="."]
+position = Vector2(400, 570)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StationaryArea"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Label" type="Label" parent="StationaryArea"]
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_size = 12
+text = "✏️ ชั้นวางเครื่องเขียน"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="StationaryArea"]
+visible = false
+offset_left = -90.0
+offset_top = -130.0
+offset_right = 90.0
+offset_bottom = -105.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_size = 12
+text = "[E / Shift] เลือกเครื่องเขียน"
+horizontal_alignment = 1
+
+[node name="VendorArea" type="Area2D" parent="."]
+position = Vector2(740, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VendorArea"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="VendorSprite" type="Sprite2D" parent="VendorArea"]
+position = Vector2(0, -20)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("8_vendor")
+
+[node name="Label" type="Label" parent="VendorArea"]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.92, 0.85, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ป้าแอ๋ว (ร้านสหกรณ์)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="VendorArea"]
+offset_left = -110.0
+offset_top = -120.0
+offset_right = 110.0
+offset_bottom = -95.0
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_font_size = 12
+text = "💡 แลกซื้อปุ๋ยอินทรีย์และเครื่องเขียน [!]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="VendorArea"]
+visible = false
+offset_left = -100.0
+offset_top = -130.0
+offset_right = 100.0
+offset_bottom = -108.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_size = 12
+text = "[E / Shift] ซื้อของกับป้าแอ๋ว"
+horizontal_alignment = 1
+
+[node name="ExitPortal" parent="." instance=ExtResource("3_portal")]
+position = Vector2(100, 640)
+target_level = 8
+target_spawn_x = 1660.0
+portal_name = "ออกไปลานเกษตรโรงเรียน"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("4_p1")]
+position = Vector2(200, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("5_p2")]
+position = Vector2(260, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

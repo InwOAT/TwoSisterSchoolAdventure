@@ -1,0 +1,133 @@
+[gd_scene load_steps=12 format=3 uid="uid://intextshop001"]
+
+[ext_resource type="Script" path="res://scripts/interiors/interior_village_shop.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/interiors/bg_interior_village_shop.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="4_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="5_p2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_uncle_somkiat.png" id="8_uncle"]
+[ext_resource type="Texture2D" path="res://assets/environment/interiors_3d/prop_grocery_shelf.png" id="9_shelf"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uncle"]
+size = Vector2(160, 140)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="InteriorVillageShop" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(10, 360)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+rotation = 1.5708
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1270, 360)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+rotation = -1.5708
+
+[node name="ShelfProp" type="Sprite2D" parent="."]
+position = Vector2(980, 520)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("9_shelf")
+
+[node name="UncleSitArea" type="Area2D" parent="."]
+position = Vector2(750, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UncleSitArea"]
+shape = SubResource("RectangleShape2D_uncle")
+
+[node name="UncleSprite" type="Sprite2D" parent="UncleSitArea"]
+position = Vector2(0, -20)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("8_uncle")
+
+[node name="Label" type="Label" parent="UncleSitArea"]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ลุงสมเกียรติ (เจ้าของร้าน)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="UncleSitArea"]
+offset_left = -85.0
+offset_top = -105.0
+offset_right = 85.0
+offset_bottom = -83.0
+theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_font_size = 12
+text = "💡 ซื้อของให้ป้าสมศรี [!]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="UncleSitArea"]
+visible = false
+offset_left = -110.0
+offset_top = -130.0
+offset_right = 110.0
+offset_bottom = -108.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_size = 12
+text = "[E / Shift] ซื้อของ & คิดเลข"
+horizontal_alignment = 1
+
+[node name="ExitPortal" parent="." instance=ExtResource("3_portal")]
+position = Vector2(100, 640)
+target_level = 2
+target_spawn_x = 1850.0
+portal_name = "ออกไปซอยหมู่บ้านดอนโมง"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("4_p1")]
+position = Vector2(200, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("5_p2")]
+position = Vector2(150, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

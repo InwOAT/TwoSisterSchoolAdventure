@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci8xsk24pvl2u"]
+
+[ext_resource type="Script" path="res://scripts/test_level_2_pavilion.gd" id="1_test"]
+
+[node name="TestLevel2Pavilion" type="Node2D"]
+script = ExtResource("1_test")

@@ -1,0 +1,443 @@
+[gd_scene load_steps=22 format=3 uid="uid://lvl03bus001"]
+
+[ext_resource type="Script" path="res://scripts/level_3.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_bus_scenery_scroll.png" id="2_scenery"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_interior_frame.png" id="3_shell"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_route_banner.png" id="4_banner"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_seat_regular.png" id="5_seat_reg"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_seat_priority.png" id="6_seat_prio"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_hanging_strap.png" id="7_strap"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_stop_bell.png" id="8_bell"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_conductor.png" id="9_cond"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_grandma.png" id="10_gma"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="11_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="12_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="13_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="14_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="15_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/smart_purse_modal.tscn" id="16_purse"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_student_seated.png" id="17_seat_stu"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_auntie_seated.png" id="18_seat_aunt"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_student_standing_strap.png" id="19_stand_girl"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_worker_standing_strap.png" id="20_stand_work"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_area"]
+radius = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.12, 0.1, 0.04, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.2, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_priority"]
+bg_color = Color(0.35, 0.08, 0.12, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.45, 0.55, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="OutsideScenery" type="Node2D" parent="."]
+position = Vector2(0, 160)
+
+[node name="ScenerySprite1" type="Sprite2D" parent="OutsideScenery"]
+position = Vector2(1280, 150)
+texture = ExtResource("2_scenery")
+
+[node name="ScenerySprite2" type="Sprite2D" parent="OutsideScenery"]
+position = Vector2(3840, 150)
+texture = ExtResource("2_scenery")
+
+[node name="BusShell" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("3_shell")
+
+[node name="RouteBanner" type="Sprite2D" parent="."]
+position = Vector2(640, 96)
+texture = ExtResource("4_banner")
+
+[node name="BusSeats" type="Node2D" parent="."]
+
+[node name="Seat1" type="Sprite2D" parent="BusSeats"]
+position = Vector2(250, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_seat_reg")
+
+[node name="Seat2" type="Sprite2D" parent="BusSeats"]
+position = Vector2(560, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_seat_reg")
+
+[node name="SeatPriority" type="Sprite2D" parent="BusSeats"]
+position = Vector2(820, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("6_seat_prio")
+
+[node name="PriorityBadge" type="Label" parent="BusSeats/SeatPriority"]
+offset_left = -78.0
+offset_top = -140.0
+offset_right = 78.0
+offset_bottom = -118.0
+theme_override_colors/font_color = Color(1, 0.9, 0.95, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_priority")
+text = "👵 ที่นั่งสำรอง Priority"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HangingStraps" type="Node2D" parent="."]
+
+[node name="Strap1" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(340, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+offset = Vector2(0, 75)
+
+[node name="Strap2" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(510, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+offset = Vector2(0, 75)
+
+[node name="Strap3" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(720, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+offset = Vector2(0, 75)
+
+[node name="Strap4" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(940, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+offset = Vector2(0, 75)
+
+[node name="BusStopBell" type="Area2D" parent="."]
+position = Vector2(1090, 520)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BusStopBell"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="BusStopBell"]
+position = Vector2(0, -60)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("8_bell")
+
+[node name="Label" type="Label" parent="BusStopBell"]
+offset_left = -55.0
+offset_top = -15.0
+offset_right = 55.0
+offset_bottom = 5.0
+theme_override_colors/font_color = Color(1, 0.85, 0.85, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "🔴 กริ่งลงรถ STOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="BusStopBell"]
+visible = false
+offset_left = -75.0
+offset_top = -120.0
+offset_right = 75.0
+offset_bottom = -100.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] กดกริ่งลงรถ 🔔"
+horizontal_alignment = 1
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="PortalExit" parent="." instance=ExtResource("13_portal")]
+position = Vector2(1180, 640)
+target_level = 4
+target_spawn_x = 100.0
+portal_name = "ลงรถที่สถานีขนส่ง"
+
+[node name="ConductorArea" type="Area2D" parent="."]
+position = Vector2(410, 565)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConductorArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="ConductorArea"]
+position = Vector2(0, -10)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("9_cond")
+
+[node name="Label" type="Label" parent="ConductorArea"]
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(0.75, 0.95, 1, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "กระเป๋ารถเมล์"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="ConductorArea"]
+offset_left = -70.0
+offset_top = -105.0
+offset_right = 70.0
+offset_bottom = -83.0
+theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "🎟️ ค่าโดยสาร 16 บ."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="ConductorArea"]
+visible = false
+offset_left = -85.0
+offset_top = -130.0
+offset_right = 85.0
+offset_bottom = -110.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] จ่ายค่าโดยสาร 16 บาท"
+horizontal_alignment = 1
+
+[node name="GrandmaArea" type="Area2D" parent="."]
+position = Vector2(725, 565)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrandmaArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="GrandmaArea"]
+position = Vector2(0, -10)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("10_gma")
+
+[node name="Label" type="Label" parent="GrandmaArea"]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.88, 0.95, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณยายถือของหนัก"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestBadge" type="Label" parent="GrandmaArea"]
+offset_left = -75.0
+offset_top = -105.0
+offset_right = 75.0
+offset_bottom = -83.0
+theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "💡 สละที่นั่งให้คุณยาย"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="GrandmaArea"]
+visible = false
+offset_left = -85.0
+offset_top = -130.0
+offset_right = 85.0
+offset_bottom = -110.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] สละที่นั่งให้คุณยาย 👵"
+horizontal_alignment = 1
+
+[node name="PassengerStudent" type="Area2D" parent="."]
+position = Vector2(245, 535)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassengerStudent"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassengerStudent"]
+position = Vector2(0, -18)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("17_seat_stu")
+
+[node name="Label" type="Label" parent="PassengerStudent"]
+offset_left = -60.0
+offset_top = -78.0
+offset_right = 60.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "น้องอาร์ต (นักเรียน)"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PassengerStudent"]
+visible = false
+offset_left = -60.0
+offset_top = -102.0
+offset_right = 60.0
+offset_bottom = -82.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] พูดคุย"
+horizontal_alignment = 1
+
+[node name="PassengerAuntie" type="Area2D" parent="."]
+position = Vector2(555, 535)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassengerAuntie"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassengerAuntie"]
+position = Vector2(0, -18)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("18_seat_aunt")
+
+[node name="Label" type="Label" parent="PassengerAuntie"]
+offset_left = -60.0
+offset_top = -78.0
+offset_right = 60.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(1, 0.85, 0.9, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ป้าสมร (แม่ค้า)"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PassengerAuntie"]
+visible = false
+offset_left = -60.0
+offset_top = -102.0
+offset_right = 60.0
+offset_bottom = -82.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] พูดคุย"
+horizontal_alignment = 1
+
+[node name="PassengerGirlStanding" type="Area2D" parent="."]
+position = Vector2(340, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassengerGirlStanding"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassengerGirlStanding"]
+position = Vector2(0, -15)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("19_stand_girl")
+
+[node name="Label" type="Label" parent="PassengerGirlStanding"]
+offset_left = -60.0
+offset_top = -86.0
+offset_right = 60.0
+offset_bottom = -66.0
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "พี่แป้ง (ม.ต้น)"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PassengerGirlStanding"]
+visible = false
+offset_left = -60.0
+offset_top = -110.0
+offset_right = 60.0
+offset_bottom = -90.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] พูดคุย"
+horizontal_alignment = 1
+
+[node name="PassengerWorkerStanding" type="Area2D" parent="."]
+position = Vector2(940, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassengerWorkerStanding"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassengerWorkerStanding"]
+position = Vector2(0, -15)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("20_stand_work")
+
+[node name="Label" type="Label" parent="PassengerWorkerStanding"]
+offset_left = -60.0
+offset_top = -86.0
+offset_right = 60.0
+offset_bottom = -66.0
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "พี่เบิร์ด (คนทำงาน)"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PassengerWorkerStanding"]
+visible = false
+offset_left = -60.0
+offset_top = -110.0
+offset_right = 60.0
+offset_bottom = -90.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] พูดคุย"
+horizontal_alignment = 1
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("11_p1")]
+position = Vector2(160, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("12_p2")]
+position = Vector2(100, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("14_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("15_dlg")]
+
+[node name="SmartPurseModal" parent="." instance=ExtResource("16_purse")]

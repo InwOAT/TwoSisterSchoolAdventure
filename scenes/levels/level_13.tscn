@@ -1,0 +1,459 @@
+[gd_scene load_steps=22 format=3 uid="uid://lvl13bedroom001"]
+
+[ext_resource type="Script" path="res://scripts/level_13.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_13_bedroom.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="6_dlg"]
+[ext_resource type="Texture2D" path="res://assets/environment/bedroom_3d/prop_study_desk.png" id="7_desk"]
+[ext_resource type="Texture2D" path="res://assets/environment/bedroom_3d/prop_twin_bed.png" id="8_bed"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_dad.png" id="9_dad"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_mom.png" id="10_mom"]
+[ext_resource type="Texture2D" path="res://assets/environment/light_glow_warm.png" id="11_light"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_desk"]
+radius = 65.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.08, 0.12, 0.22, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color(1, 0.85, 0.35, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0.18, 0.32, 0.48, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.5, 0.85, 1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_choice"]
+bg_color = Color(0.12, 0.18, 0.3, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.95, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_choice_hover"]
+bg_color = Color(0.2, 0.35, 0.55, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ending_card"]
+bg_color = Color(0.06, 0.09, 0.18, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color(1, 0.85, 0.32, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 16
+
+[sub_resource type="Curve" id="Curve_stars"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.5, 1.2), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Level13" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("2_bg")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.85, 0.88, 0.98, 1)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1260, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="StudyDesk" type="Sprite2D" parent="."]
+position = Vector2(530, 565)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("7_desk")
+
+[node name="TwinBed" type="Sprite2D" parent="."]
+position = Vector2(980, 560)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("8_bed")
+
+[node name="RoomLights" type="Node2D" parent="."]
+
+[node name="DeskLight" type="PointLight2D" parent="RoomLights"]
+position = Vector2(490, 500)
+color = Color(1, 0.95, 0.7, 1)
+energy = 1.6
+texture = ExtResource("11_light")
+texture_scale = 2.8
+
+[node name="BedLight" type="PointLight2D" parent="RoomLights"]
+position = Vector2(980, 510)
+color = Color(1, 0.92, 0.78, 1)
+energy = 1.4
+texture = ExtResource("11_light")
+texture_scale = 2.6
+
+[node name="HomeworkArea" type="Area2D" parent="."]
+position = Vector2(530, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeworkArea"]
+shape = SubResource("CircleShape2D_desk")
+
+[node name="Label" type="Label" parent="HomeworkArea"]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.9, 0.45, 1)
+theme_override_font_size = 12
+text = "📖 โต๊ะทำการบ้าน"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="HomeworkArea"]
+visible = false
+offset_left = -90.0
+offset_top = -105.0
+offset_right = 90.0
+offset_bottom = -85.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] เปิดสมุดทำการบ้าน 3 วิชา"
+horizontal_alignment = 1
+
+[node name="ParentGroup" type="Node2D" parent="."]
+visible = false
+position = Vector2(60, 640)
+
+[node name="DadSprite" type="Sprite2D" parent="ParentGroup"]
+position = Vector2(0, -134)
+scale = Vector2(1.22, 1.22)
+texture = ExtResource("9_dad")
+
+[node name="DadLabel" type="Label" parent="ParentGroup/DadSprite"]
+offset_left = -50.0
+offset_top = -135.0
+offset_right = 50.0
+offset_bottom = -112.0
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณพ่อ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MomSprite" type="Sprite2D" parent="ParentGroup"]
+position = Vector2(100, -134)
+scale = Vector2(1.22, 1.22)
+texture = ExtResource("10_mom")
+
+[node name="MomLabel" type="Label" parent="ParentGroup/MomSprite"]
+offset_left = -50.0
+offset_top = -135.0
+offset_right = 50.0
+offset_bottom = -112.0
+theme_override_colors/font_color = Color(1, 0.8, 0.9, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณแม่"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(250, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(200, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("5_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("6_dlg")]
+
+[node name="HomeworkModal" type="CanvasLayer" parent="."]
+layer = 15
+visible = false
+
+[node name="Backdrop" type="ColorRect" parent="HomeworkModal"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.06, 0.12, 0.65)
+
+[node name="Card" type="Panel" parent="HomeworkModal"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -190.0
+offset_right = 280.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="HomeworkModal/Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="HomeworkModal/Card/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SubjectBadge" type="Label" parent="HomeworkModal/Card/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.5, 1)
+theme_override_font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_header")
+text = "📚 วิชาที่ 1/3: คณิตศาสตร์ (การคิดเงินทอน)"
+horizontal_alignment = 1
+
+[node name="QuestionLabel" type="Label" parent="HomeworkModal/Card/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_size = 13
+text = "หากซื้อสมุดเล่มละ 15 บาท จ่ายด้วยธนบัตร 20 บาท จะได้รับเงินทอนกี่บาท?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BtnChoice1" type="Button" parent="HomeworkModal/Card/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_choice_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_choice")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_choice")
+text = "A. 3 บาท [กด 1]"
+
+[node name="BtnChoice2" type="Button" parent="HomeworkModal/Card/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_choice_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_choice")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_choice")
+text = "B. 5 บาท [กด 2]"
+
+[node name="BtnChoice3" type="Button" parent="HomeworkModal/Card/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_choice_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_choice")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_choice")
+text = "C. 10 บาท [กด 3]"
+
+[node name="EndingLayer" type="CanvasLayer" parent="."]
+layer = 20
+visible = false
+
+[node name="Backdrop" type="ColorRect" parent="EndingLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.06, 0.12, 0.82)
+
+[node name="ConfettiParticles" type="CPUParticles2D" parent="EndingLayer"]
+position = Vector2(640, -20)
+emitting = false
+amount = 80
+lifetime = 2.5
+speed_scale = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(640, 10)
+direction = Vector2(0, 1)
+spread = 20.0
+gravity = Vector2(0, 220)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+scale_amount_min = 4.0
+scale_amount_max = 7.0
+scale_amount_curve = SubResource("Curve_stars")
+color = Color(1, 0.88, 0.35, 1)
+
+[node name="EndingCard" type="Panel" parent="EndingLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -220.0
+offset_right = 320.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ending_card")
+
+[node name="VBox" type="VBoxContainer" parent="EndingLayer/EndingCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = -24.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Banner" type="Label" parent="EndingLayer/EndingCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.45, 1)
+theme_override_font_size = 20
+text = "🌟 การผจญภัยไปโรงเรียน จบบริบูรณ์ 🌟"
+horizontal_alignment = 1
+
+[node name="SubBanner" type="Label" parent="EndingLayer/EndingCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_font_size = 13
+text = "พี่ของขวัญ และ น้องปีใหม่ เป็นเด็กดีน่ารักของทุกคน!"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="EndingLayer/EndingCard/VBox"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="EndingLayer/EndingCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_size = 14
+text = "💖 แต้มความดีรวม: 300 แต้ม   |   ⭐ ดาวมารยาท: 12 ดวง"
+horizontal_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="EndingLayer/EndingCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.6, 1)
+theme_override_font_size = 15
+text = "🏆 ฉายาที่ได้รับ: สุดยอดคนดีศรีชุมชน"
+horizontal_alignment = 1
+
+[node name="StoryText" type="Label" parent="EndingLayer/EndingCard/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_size = 12
+text = "ตลอดทั้งวัน ทั้งสองคนได้ช่วยเหลืองานบ้าน มีสัมมาคารวะ ช่วยเหลือเพื่อนในยามฝนตก และตั้งใจทำการบ้านจนสำเร็จ คุณพ่อคุณแม่ภูมิใจและอวยพรให้นอนหลับฝันดี ราตรีสวัสดิ์นะจ๊ะ ❤️"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BtnRestart" type="Button" parent="EndingLayer/EndingCard/VBox"]
+custom_minimum_size = Vector2(240, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_choice_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_choice")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_choice")
+text = "🔄 เริ่มต้นการผจญภัยใหม่อีกครั้ง"

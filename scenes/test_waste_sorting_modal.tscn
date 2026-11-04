@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://testwastemodal01"]
+
+[ext_resource type="Script" path="res://scripts/test_waste_sorting_modal.gd" id="1_test"]
+
+[node name="TestWasteSortingModal" type="Node2D"]
+script = ExtResource("1_test")

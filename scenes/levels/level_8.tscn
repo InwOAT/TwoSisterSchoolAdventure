@@ -1,0 +1,398 @@
+[gd_scene load_steps=19 format=3 uid="uid://lvl08garden001"]
+
+[ext_resource type="Script" path="res://scripts/level_8.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_8_garden.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Texture2D" path="res://assets/environment/shrine_thai.png" id="8_shrine"]
+[ext_resource type="Texture2D" path="res://assets/environment/flowerbed_garden.png" id="9_flower"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_kindergarten.png" id="10_kid"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_nurse.png" id="11_nurse"]
+[ext_resource type="Texture2D" path="res://assets/environment/bldg_police.png" id="12_lib"]
+[ext_resource type="Texture2D" path="res://assets/environment/bldg_clinic.png" id="13_clinic"]
+[ext_resource type="Texture2D" path="res://assets/environment/bldg_lotus.png" id="14_coop"]
+[ext_resource type="PackedScene" path="res://scenes/walking_villager.tscn" id="15_walker"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_area"]
+radius = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Level8" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(1700, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(1100, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(2200, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="PortalBackCanteen" parent="." instance=ExtResource("5_portal")]
+position = Vector2(80, 640)
+target_level = 7
+target_spawn_x = 1100.0
+portal_name = "ย้อนกลับ [อาคาร 13 โรงอาหาร & 20 ห้องพัสดุ]"
+
+[node name="PortalReturnBus" parent="." instance=ExtResource("5_portal")]
+position = Vector2(2150, 640)
+target_level = 9
+target_spawn_x = 100.0
+portal_name = "ประตูโรงเรียน [จุด 24] ขึ้นสองแถวกลับบ้าน"
+
+[node name="PortalShrine" parent="." instance=ExtResource("5_portal")]
+position = Vector2(320, 640)
+target_level = 804
+target_scene_path = "res://scenes/interiors/interior_school_shrine.tscn"
+target_spawn_x = 200.0
+portal_name = "ศาลปู่-ย่า ประจำโรงเรียน [จุด 22]"
+is_building_door = true
+
+[node name="PortalLibrary" parent="." instance=ExtResource("5_portal")]
+position = Vector2(650, 640)
+target_level = 801
+target_scene_path = "res://scenes/interiors/interior_school_library.tscn"
+target_spawn_x = 200.0
+portal_name = "ห้องสมุดโรงเรียน [อาคาร 4]"
+is_building_door = true
+
+[node name="PortalInfirmary" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1320, 640)
+target_level = 802
+target_scene_path = "res://scenes/interiors/interior_school_infirmary.tscn"
+target_spawn_x = 200.0
+portal_name = "ห้องพยาบาล [อาคาร 14]"
+is_building_door = true
+
+[node name="PortalCoop" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1660, 640)
+target_level = 803
+target_scene_path = "res://scenes/interiors/interior_school_coop.tscn"
+target_spawn_x = 200.0
+portal_name = "ร้านค้าสหกรณ์ [อาคาร 18]"
+is_building_door = true
+
+[node name="PortalFlower" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1960, 640)
+target_level = 805
+target_scene_path = "res://scenes/interiors/interior_school_garden.tscn"
+target_spawn_x = 200.0
+portal_name = "แปลงเกษตรพฤกษศาสตร์ [จุด 17]"
+is_building_door = true
+
+[node name="Zones" type="Node2D" parent="."]
+
+[node name="ShrineArea" type="Area2D" parent="Zones"]
+position = Vector2(320, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/ShrineArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="ShrineSprite" type="Sprite2D" parent="Zones/ShrineArea"]
+position = Vector2(0, -60)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("8_shrine")
+
+[node name="Label" type="Label" parent="Zones/ShrineArea"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(1, 0.95, 0.4, 1)
+theme_override_font_size = 12
+text = "ศาลปู่-ย่า [จุด 22]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/ShrineArea"]
+visible = false
+offset_left = -70.0
+offset_top = -160.0
+offset_right = 70.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ไหว้ศาลปู่-ย่า"
+horizontal_alignment = 1
+
+[node name="LibraryArea" type="Area2D" parent="Zones"]
+position = Vector2(650, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/LibraryArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="LibBuilding" type="Sprite2D" parent="Zones/LibraryArea"]
+position = Vector2(0, -70)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("12_lib")
+
+[node name="Label" type="Label" parent="Zones/LibraryArea"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+theme_override_font_size = 12
+text = "ห้องสมุด [อาคาร 4]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/LibraryArea"]
+visible = false
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ค้นตำราพฤกษศาสตร์"
+horizontal_alignment = 1
+
+[node name="PlaygroundArea" type="Area2D" parent="Zones"]
+position = Vector2(980, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/PlaygroundArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="KidSprite" type="Sprite2D" parent="Zones/PlaygroundArea"]
+position = Vector2(0, -10)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("10_kid")
+
+[node name="Label" type="Label" parent="Zones/PlaygroundArea"]
+offset_left = -70.0
+offset_top = -65.0
+offset_right = 70.0
+offset_bottom = -45.0
+theme_override_colors/font_color = Color(1, 0.7, 0.7, 1)
+theme_override_font_size = 12
+text = "น้องอนุบาล [สนามเด็กเล่น]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/PlaygroundArea"]
+visible = false
+offset_left = -80.0
+offset_top = -85.0
+offset_right = 80.0
+offset_bottom = -65.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ช่วยปฐมพยาบาลน้อง"
+horizontal_alignment = 1
+
+[node name="InfirmaryArea" type="Area2D" parent="Zones"]
+position = Vector2(1320, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/InfirmaryArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="ClinicBuilding" type="Sprite2D" parent="Zones/InfirmaryArea"]
+position = Vector2(0, -70)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("13_clinic")
+
+[node name="NurseSprite" type="Sprite2D" parent="Zones/InfirmaryArea"]
+position = Vector2(30, -5)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("11_nurse")
+
+[node name="NurseLabel" type="Label" parent="Zones/InfirmaryArea"]
+offset_left = -30.0
+offset_top = -80.0
+offset_right = 90.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.9, 0.95, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ครูพยาบาล"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Zones/InfirmaryArea"]
+offset_left = -70.0
+offset_top = -140.0
+offset_right = 70.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(0.5, 1, 0.8, 1)
+theme_override_font_size = 12
+text = "ห้องพยาบาล [อาคาร 14]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/InfirmaryArea"]
+visible = false
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] รับกล่องปฐมพยาบาล"
+horizontal_alignment = 1
+
+[node name="CoopArea" type="Area2D" parent="Zones"]
+position = Vector2(1660, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/CoopArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="CoopBuilding" type="Sprite2D" parent="Zones/CoopArea"]
+position = Vector2(0, -70)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("14_coop")
+
+[node name="Label" type="Label" parent="Zones/CoopArea"]
+offset_left = -70.0
+offset_top = -140.0
+offset_right = 70.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+theme_override_font_size = 12
+text = "ร้านค้าสหกรณ์ [อาคาร 18]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/CoopArea"]
+visible = false
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] แลกซื้อปุ๋ยอินทรีย์"
+horizontal_alignment = 1
+
+[node name="FlowerArea" type="Area2D" parent="Zones"]
+position = Vector2(1960, 580)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/FlowerArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="FlowerSprite" type="Sprite2D" parent="Zones/FlowerArea"]
+position = Vector2(0, -25)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("9_flower")
+
+[node name="Label" type="Label" parent="Zones/FlowerArea"]
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.6, 0.9, 1)
+theme_override_font_size = 12
+text = "แปลงดอกไม้ [ริมสระน้ำ 17]"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="Zones/FlowerArea"]
+visible = false
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = -80.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] รดน้ำใส่ปุ๋ยฟื้นฟู"
+horizontal_alignment = 1
+
+[node name="WalkingStudent1" parent="." instance=ExtResource("15_walker")]
+position = Vector2(480, 580)
+villager_name = "เพื่อนนักเรียน"
+texture_path = "res://assets/characters/npcs/npc_boy_student.png"
+walk_speed = 38.0
+left_bound = 380.0
+right_bound = 600.0
+speech_dialogs = PackedStringArray("ศาลปู่ย่าร่มรื่นมาก", "ขอพรให้สอบได้คะแนนดีๆ", "ห้องสมุดมีหนังสือใหม่เยอะมาก")
+
+[node name="WalkingStudent2" parent="." instance=ExtResource("15_walker")]
+position = Vector2(820, 580)
+villager_name = "เพื่อนนักเรียนหญิง"
+texture_path = "res://assets/characters/npcs/npc_girl_student.png"
+walk_speed = 42.0
+left_bound = 720.0
+right_bound = 930.0
+speech_dialogs = PackedStringArray("สนามเด็กเล่นมีน้องหกล้มอยู่", "ช่วยไปบอกห้องพยาบาลที!", "ระวังลื่นล้มนะ")
+
+[node name="WalkingStudent3" parent="." instance=ExtResource("15_walker")]
+position = Vector2(1150, 580)
+villager_name = "นักเรียนจิตอาสา"
+texture_path = "res://assets/characters/npcs/npc_student.png"
+walk_speed = 40.0
+left_bound = 1050.0
+right_bound = 1280.0
+speech_dialogs = PackedStringArray("ครูพยาบาลใจดีมาก", "สหกรณ์มีเครื่องเขียนและปุ๋ย", "ทำแผลแล้วอาการดีขึ้นแน่นอน")
+
+[node name="WalkingStudent4" parent="." instance=ExtResource("15_walker")]
+position = Vector2(1820, 580)
+villager_name = "นักเรียนชมรมเกษตร"
+texture_path = "res://assets/characters/npcs/npc_girl_student.png"
+walk_speed = 36.0
+left_bound = 1720.0
+right_bound = 1920.0
+speech_dialogs = PackedStringArray("ถ้าแปลงดอกไม้บานคงสวยมาก!", "รดน้ำและใส่ปุ๋ยอินทรีย์นะ", "สระน้ำโรงเรียนเย็นสบาย")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(120, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(80, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

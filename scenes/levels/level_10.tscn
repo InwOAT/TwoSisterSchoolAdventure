@@ -1,0 +1,466 @@
+[gd_scene load_steps=24 format=3 uid="uid://lvl10busreturn001"]
+
+[ext_resource type="Script" path="res://scripts/level_10.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_bus_scenery_scroll.png" id="2_scenery"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_interior_frame.png" id="3_shell"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_route_banner.png" id="4_banner"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_seat_regular.png" id="5_seat_reg"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_seat_priority.png" id="6_seat_prio"]
+[ext_resource type="Texture2D" path="res://assets/environment/bus_3d/bus_hanging_strap.png" id="7_strap"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="8_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="9_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="10_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="11_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="12_dlg"]
+[ext_resource type="Script" path="res://scripts/interactable_item.gd" id="13_item"]
+[ext_resource type="Texture2D" path="res://assets/items/item_wallet.png" id="14_waltex"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_grandma_seated.png" id="15_grandma"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_girl_student.png" id="16_woman"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_student_standing_strap.png" id="17_stander"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_stranger.png" id="18_stranger"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_conductor.png" id="19_conductor"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc"]
+radius = 45.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.06, 0.1, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quest_card"]
+bg_color = Color(0.08, 0.12, 0.22, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.82, 0.32, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quest_header"]
+bg_color = Color(0.35, 0.18, 0.08, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 0.75, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_safe"]
+bg_color = Color(0.12, 0.32, 0.22, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.4, 0.95, 0.65, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_safe_hover"]
+bg_color = Color(0.18, 0.45, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.65, 1, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_danger"]
+bg_color = Color(0.32, 0.14, 0.16, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.45, 0.45, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_danger_hover"]
+bg_color = Color(0.48, 0.18, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.7, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Level10" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(1, 0.92, 0.82, 1)
+
+[node name="OutsideScenery" type="Node2D" parent="."]
+position = Vector2(0, 160)
+
+[node name="ScenerySprite1" type="Sprite2D" parent="OutsideScenery"]
+position = Vector2(1280, 150)
+texture = ExtResource("2_scenery")
+
+[node name="ScenerySprite2" type="Sprite2D" parent="OutsideScenery"]
+position = Vector2(3840, 150)
+texture = ExtResource("2_scenery")
+
+[node name="BusShell" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("3_shell")
+
+[node name="RouteBanner" type="Sprite2D" parent="."]
+position = Vector2(640, 96)
+texture = ExtResource("4_banner")
+
+[node name="RouteText" type="Label" parent="."]
+offset_left = 420.0
+offset_top = 82.0
+offset_right = 860.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 0.92, 0.4, 1)
+theme_override_font_size = 12
+text = "สาย 514: โรงเรียน - ปากซอยหมู่บ้านดอนโมง (ขากลับ)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BusSeats" type="Node2D" parent="."]
+
+[node name="Seat1" type="Sprite2D" parent="BusSeats"]
+position = Vector2(250, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_seat_reg")
+
+[node name="Seat2" type="Sprite2D" parent="BusSeats"]
+position = Vector2(560, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_seat_reg")
+
+[node name="SeatPriority" type="Sprite2D" parent="BusSeats"]
+position = Vector2(820, 525)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("6_seat_prio")
+
+[node name="HangingStraps" type="Node2D" parent="."]
+
+[node name="Strap1" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(340, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+
+[node name="Strap2" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(500, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+
+[node name="Strap3" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(720, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+
+[node name="Strap4" type="Sprite2D" parent="HangingStraps"]
+position = Vector2(920, 150)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_strap")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1260, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="PassengerGrandma" type="Sprite2D" parent="."]
+position = Vector2(245, 535)
+scale = Vector2(0.82, 0.82)
+offset = Vector2(0, -18)
+texture = ExtResource("15_grandma")
+
+[node name="Label" type="Label" parent="PassengerGrandma"]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.88, 0.95, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณยาย (หลับพักผ่อน)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PassengerStanding" type="Sprite2D" parent="."]
+position = Vector2(500, 560)
+scale = Vector2(0.78, 0.78)
+offset = Vector2(0, -15)
+texture = ExtResource("17_stander")
+
+[node name="Label" type="Label" parent="PassengerStanding"]
+offset_left = -60.0
+offset_top = -86.0
+offset_right = 60.0
+offset_bottom = -66.0
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "น้องพีช (นักเรียน)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemWallet" type="Area2D" parent="."]
+position = Vector2(460, 620)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("13_item")
+item_name = "กระเป๋าสตางค์"
+pickup_message = "น้องปีใหม่ตาไวเห็น 'กระเป๋าสตางค์' ตกอยู่บนพื้นรถเมล์! รีบนำไปคืนพี่ผู้หญิงข้างหน้ากัน!"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemWallet"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="ItemWallet"]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("14_waltex")
+
+[node name="PromptLabel" type="Label" parent="ItemWallet"]
+visible = false
+offset_left = -70.0
+offset_top = -35.0
+offset_right = 70.0
+offset_bottom = -15.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] เก็บกระเป๋าสตางค์"
+horizontal_alignment = 1
+
+[node name="PassengerWoman" type="Area2D" parent="."]
+position = Vector2(560, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassengerWoman"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassengerWoman"]
+position = Vector2(0, -10)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("16_woman")
+
+[node name="Label" type="Label" parent="PassengerWoman"]
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = -60.0
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "พี่ผู้โดยสาร"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PassengerWoman"]
+visible = false
+offset_left = -80.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] คืนกระเป๋าสตางค์"
+horizontal_alignment = 1
+
+[node name="StrangerMan" type="Area2D" parent="."]
+position = Vector2(780, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StrangerMan"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="Sprite2D" type="Sprite2D" parent="StrangerMan"]
+position = Vector2(0, -15)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("18_stranger")
+
+[node name="Label" type="Label" parent="StrangerMan"]
+offset_left = -60.0
+offset_top = -85.0
+offset_right = 60.0
+offset_bottom = -65.0
+theme_override_colors/font_color = Color(1, 0.6, 0.7, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คนแปลกหน้า"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="StrangerMan"]
+visible = false
+offset_left = -70.0
+offset_top = -100.0
+offset_right = 70.0
+offset_bottom = -80.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] พูดคุย"
+horizontal_alignment = 1
+
+[node name="ChoiceContainer" type="Panel" parent="StrangerMan"]
+visible = false
+offset_left = -230.0
+offset_top = -245.0
+offset_right = 230.0
+offset_bottom = -75.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_quest_card")
+
+[node name="Title" type="Label" parent="StrangerMan/ChoiceContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.6, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_quest_header")
+text = "⚠️ เควสความปลอดภัย: ระวังคนแปลกหน้าชวนไปกินขนม"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="StrangerMan/ChoiceContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = -16.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.9, 1)
+theme_override_font_size = 12
+text = "คนแปลกหน้าชักชวนให้รับขนมและตามไป น้องๆ ควรตัดสินใจอย่างไร?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnRefuse" type="Button" parent="StrangerMan/ChoiceContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 68.0
+offset_right = -16.0
+offset_bottom = 110.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.92, 1, 0.95, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_safe_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_safe")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_safe")
+text = "🛡️ 1. ปฏิเสธอย่างสุภาพ & รีบถอยห่าง [กด 1]"
+
+[node name="BtnAccept" type="Button" parent="StrangerMan/ChoiceContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 116.0
+offset_right = -16.0
+offset_bottom = 158.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.88, 0.88, 1)
+theme_override_font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_danger_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_danger")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_danger")
+text = "❌ 2. หลงเชื่อรับขนมแล้วตามไป (อันตราย!) [กด 2]"
+
+[node name="ConductorSprite" type="Sprite2D" parent="."]
+position = Vector2(1040, 565)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("19_conductor")
+
+[node name="Label" type="Label" parent="ConductorSprite"]
+offset_left = -65.0
+offset_top = -85.0
+offset_right = 65.0
+offset_bottom = -65.0
+theme_override_colors/font_color = Color(0.75, 0.95, 1, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "พี่กระเป๋ารถเมล์"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PortalVillage" parent="." instance=ExtResource("10_portal")]
+position = Vector2(1200, 640)
+target_level = 11
+target_spawn_x = 100.0
+portal_name = "ลงรถหน้าปากซอยบ้าน"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("8_p1")]
+position = Vector2(100, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("9_p2")]
+position = Vector2(60, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("11_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("12_dlg")]

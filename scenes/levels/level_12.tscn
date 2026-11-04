@@ -1,0 +1,230 @@
+[gd_scene load_steps=22 format=3 uid="uid://lvl12home001"]
+
+[ext_resource type="Script" path="res://scripts/level_12.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_1_home.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_dad.png" id="8_dad"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_mom.png" id="9_mom"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_shoe_rack.png" id="10_shoerack"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_sofa.png" id="11_sofa"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_dining_table.png" id="12_table"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_fridge.png" id="13_fridge"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_trash_bin.png" id="15_trashbin"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_area"]
+radius = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.08, 0.1, 0.16, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.35, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Level12" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1260, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="TrashBinSpot" type="Node2D" parent="."]
+position = Vector2(1105, 596)
+
+[node name="Sprite2D" type="Sprite2D" parent="TrashBinSpot"]
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("15_trashbin")
+
+[node name="Label" type="Label" parent="TrashBinSpot"]
+offset_left = -60.0
+offset_top = -68.0
+offset_right = 60.0
+offset_bottom = -48.0
+theme_override_colors/font_color = Color(0.65, 1, 0.75, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ถังขยะรีไซเคิล 🗑️"
+horizontal_alignment = 1
+
+[node name="ShoeRack" type="Sprite2D" parent="."]
+position = Vector2(1015, 598)
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("10_shoerack")
+
+[node name="ShoeRackArea" type="Area2D" parent="."]
+position = Vector2(1015, 600)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShoeRackArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="PromptLabel" type="Label" parent="ShoeRackArea"]
+visible = false
+offset_left = -70.0
+offset_top = -65.0
+offset_right = 70.0
+offset_bottom = -45.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "[E/Shift] จัดเก็บรองเท้า & วางกระเป๋า"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ShoeRackArea"]
+offset_left = -60.0
+offset_top = -45.0
+offset_right = 60.0
+offset_bottom = -25.0
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "👟 ชั้นวางรองเท้า"
+horizontal_alignment = 1
+
+[node name="Sofa" type="Sprite2D" parent="."]
+position = Vector2(410, 580)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("11_sofa")
+
+[node name="DadArea" type="Area2D" parent="."]
+position = Vector2(410, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DadArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="DadSprite" type="Sprite2D" parent="DadArea"]
+position = Vector2(0, -25)
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("8_dad")
+
+[node name="PromptLabel" type="Label" parent="DadArea"]
+visible = false
+offset_left = -85.0
+offset_top = -182.0
+offset_right = 85.0
+offset_bottom = -154.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] นวดหลังให้คุณพ่อ"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DadArea"]
+offset_left = -60.0
+offset_top = -148.0
+offset_right = 60.0
+offset_bottom = -124.0
+theme_override_colors/font_color = Color(0.6, 0.88, 1, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณพ่อ (พักผ่อน)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiningTable" type="Sprite2D" parent="."]
+position = Vector2(530, 575)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("12_table")
+
+[node name="MomArea" type="Area2D" parent="."]
+position = Vector2(600, 560)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MomArea"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="MomSprite" type="Sprite2D" parent="MomArea"]
+position = Vector2(0, -25)
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("9_mom")
+
+[node name="PromptLabel" type="Label" parent="MomArea"]
+visible = false
+offset_left = -85.0
+offset_top = -182.0
+offset_right = 85.0
+offset_bottom = -154.0
+theme_override_colors/font_color = Color(1, 0.95, 0.3, 1)
+theme_override_font_size = 11
+text = "[E/Shift] ช่วยแม่ล้างจานมื้อเย็น"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MomArea"]
+offset_left = -60.0
+offset_top = -148.0
+offset_right = 60.0
+offset_bottom = -124.0
+theme_override_colors/font_color = Color(1, 0.8, 0.9, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "คุณแม่ (เก็บโต๊ะ)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fridge" type="Sprite2D" parent="."]
+position = Vector2(780, 530)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("13_fridge")
+
+[node name="PortalBedroom" parent="." instance=ExtResource("5_portal")]
+position = Vector2(935, 640)
+target_level = 13
+target_spawn_x = 120.0
+portal_name = "ขึ้นห้องนอน (ฉากที่ 13)"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(1100, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(1150, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

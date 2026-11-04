@@ -1,0 +1,486 @@
+[gd_scene load_steps=19 format=3 uid="uid://dgrandmaquiz001"]
+
+[ext_resource type="Script" path="res://scripts/grandma_quiz_modal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/characters/npcs/npc_grandma.png" id="2_grandma"]
+[ext_resource type="Texture2D" path="res://assets/environment/songthaew_red.png" id="3_red"]
+[ext_resource type="Texture2D" path="res://assets/environment/songthaew_green.png" id="4_green"]
+[ext_resource type="Texture2D" path="res://assets/environment/songthaew_blue.png" id="5_blue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_panel"]
+bg_color = Color(0.07, 0.11, 0.18, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 5
+border_color = Color(1, 0.82, 0.35, 0.95)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_gold"]
+bg_color = Color(0.82, 0.55, 0.12, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.6, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_teal"]
+bg_color = Color(0.12, 0.45, 0.55, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.65, 0.92, 1, 0.95)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag_target"]
+bg_color = Color(0.1, 0.34, 0.22, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.98, 0.65, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 3.0
+content_margin_right = 12.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_info"]
+bg_color = Color(0.11, 0.16, 0.25, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.55, 0.75, 0.55)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait_frame"]
+bg_color = Color(0.06, 0.09, 0.15, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.8, 1, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint_box"]
+bg_color = Color(0.08, 0.14, 0.22, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.5, 0.7, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_red"]
+bg_color = Color(0.36, 0.14, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.95, 0.45, 0.45, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_green"]
+bg_color = Color(0.12, 0.38, 0.22, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.45, 0.98, 0.65, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_blue"]
+bg_color = Color(0.14, 0.26, 0.42, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.45, 0.8, 1, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_explain_box"]
+bg_color = Color(0.04, 0.08, 0.06, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.65, 0.45, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cancel"]
+bg_color = Color(0.16, 0.2, 0.28, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.48, 0.58, 0.72, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[node name="GrandmaQuizModal" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.05, 0.09, 0.68)
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(850, 530)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -265.0
+offset_right = 425.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_panel")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderHBox" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TagQuest" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.98, 0.85, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_gold")
+text = "👵 เควสคุณยายถามทาง"
+
+[node name="TagLocation" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_teal")
+text = "🚏 สถานีขนส่งหนองเรือ • จิตอาสาช่วยสังคม"
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TagReward" type="Label" parent="Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.75, 1)
+theme_override_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag_target")
+text = "⭐ +1 ดาวความดี (ช่วยคนชรา)"
+
+[node name="BtnClose" type="Button" parent="Panel/Margin/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(30, 26)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "✕"
+
+[node name="GrandmaCard" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_info")
+
+[node name="HBox" type="HBoxContainer" parent="Panel/Margin/VBox/GrandmaCard"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PortraitBox" type="PanelContainer" parent="Panel/Margin/VBox/GrandmaCard/HBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
+
+[node name="GrandmaPortrait" type="TextureRect" parent="Panel/Margin/VBox/GrandmaCard/HBox/PortraitBox"]
+custom_minimum_size = Vector2(60, 75)
+layout_mode = 2
+texture = ExtResource("2_grandma")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxText" type="VBoxContainer" parent="Panel/Margin/VBox/GrandmaCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="SpeakerLabel" type="Label" parent="Panel/Margin/VBox/GrandmaCard/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
+theme_override_font_size = 15
+text = "คุณยายใจดี (กำลังหาคันไปหาหมอตรวจสุขภาพ)"
+
+[node name="QuestionLabel" type="Label" parent="Panel/Margin/VBox/GrandmaCard/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+theme_override_font_size = 13
+text = "หลานเอ๊ย... ยายสายตาฝ้าฟาง กำลังจะไปหาหมอที่ 'โรงพยาบาลชุมชนหนองเรือ'
+ช่วยยายดูหน่อยได้ไหมจ๊ะ ว่ายายต้องขึ้นรถสองแถวชานชาลาไหน และคันสีอะไร?"
+autowrap_mode = 3
+
+[node name="HintBox" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hint_box")
+
+[node name="HintLabel" type="Label" parent="Panel/Margin/VBox/HintBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_font_size = 12
+text = "📋 คำใบ้จากป้ายตารางเดินรถ: รถสีแดง = ตลาดสดเทศบาล | รถสีเขียว = โรงพยาบาลชุมชน | รถสีฟ้า = โรงเรียน"
+
+[node name="ChoicesPrompt" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 1)
+theme_override_font_size = 12
+text = "👇 เลือกคำตอบเพื่อชี้ทางให้คุณยาย (คลิกหรือกดปุ่มตัวเลขบนคีย์บอร์ด):"
+
+[node name="ChoicesGrid" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BtnChoiceA" type="Button" parent="Panel/Margin/VBox/ChoicesGrid"]
+custom_minimum_size = Vector2(250, 130)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_red")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceA"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceA/VBox"]
+custom_minimum_size = Vector2(90, 50)
+layout_mode = 2
+texture = ExtResource("3_red")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceA/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.9, 1)
+theme_override_font_size = 13
+text = "ก. ชานชาลา 1 : รถสีแดง"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceA/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.75, 0.9)
+theme_override_font_size = 11
+text = "(ไปตลาดสดเทศบาล) [กด 1 / A]"
+horizontal_alignment = 1
+
+[node name="BtnChoiceB" type="Button" parent="Panel/Margin/VBox/ChoicesGrid"]
+custom_minimum_size = Vector2(250, 130)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_green")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceB"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceB/VBox"]
+custom_minimum_size = Vector2(90, 50)
+layout_mode = 2
+texture = ExtResource("4_green")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceB/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.9, 1)
+theme_override_font_size = 13
+text = "ข. ชานชาลา 2 : รถสีเขียว"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceB/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 1, 0.8, 0.9)
+theme_override_font_size = 11
+text = "(ไปโรงพยาบาลชุมชน) [กด 2 / B]"
+horizontal_alignment = 1
+
+[node name="BtnChoiceC" type="Button" parent="Panel/Margin/VBox/ChoicesGrid"]
+custom_minimum_size = Vector2(250, 130)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_blue")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceC"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceC/VBox"]
+custom_minimum_size = Vector2(90, 50)
+layout_mode = 2
+texture = ExtResource("5_blue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceC/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_size = 13
+text = "ค. ชานชาลา 3 : รถสีฟ้า"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="Panel/Margin/VBox/ChoicesGrid/BtnChoiceC/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.88, 1, 0.9)
+theme_override_font_size = 11
+text = "(ไปโรงเรียนชุมชน) [กด 3 / C]"
+horizontal_alignment = 1
+
+[node name="ExplanationBox" type="PanelContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_explain_box")
+
+[node name="FeedbackLabel" type="Label" parent="Panel/Margin/VBox/ExplanationBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.75, 1)
+theme_override_font_size = 12
+text = "💡 คำแนะนำ: เลือกคำตอบที่ถูกต้องเพื่อบอกทางคุณยายขึ้นรถไปโรงพยาบาลได้อย่างปลอดภัย"
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnCloseBottom" type="Button" parent="Panel/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "✕ ปิดหน้าต่าง [Esc]"

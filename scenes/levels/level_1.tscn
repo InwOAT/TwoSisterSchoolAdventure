@@ -1,0 +1,441 @@
+[gd_scene load_steps=22 format=3 uid="uid://lvl01home001"]
+
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/bg_scene_1_home.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player_khongkwan.tscn" id="3_p1"]
+[ext_resource type="PackedScene" path="res://scenes/player_peemai.tscn" id="4_p2"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_modal.tscn" id="7_dlg"]
+[ext_resource type="Script" path="res://scripts/pushable_object.gd" id="8_chair"]
+[ext_resource type="Script" path="res://scripts/interactable_item.gd" id="9_item"]
+[ext_resource type="Texture2D" path="res://assets/items/item_house_key.png" id="10_keytex"]
+[ext_resource type="Texture2D" path="res://assets/items/item_student_card.png" id="11_cardtex"]
+[ext_resource type="Texture2D" path="res://assets/items/item_umbrella.png" id="12_umbtex"]
+[ext_resource type="Script" path="res://scripts/npc_character.gd" id="13_npc"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_shoe_rack.png" id="14_shoerack"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_sofa.png" id="15_sofa"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_broom.png" id="16_broom"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_dining_table.png" id="17_table"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_chair.png" id="18_chair3d"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_fridge.png" id="19_fridge"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_trash_bag.png" id="20_trashbag"]
+[ext_resource type="Texture2D" path="res://assets/environment/home_3d/prop_trash_bin.png" id="21_trashbin"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chair"]
+size = Vector2(72, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fridge"]
+size = Vector2(104, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 38.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc"]
+radius = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tag"]
+bg_color = Color(0.08, 0.1, 0.16, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.35, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_script")
+add_maple_platforms = false
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 640)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(20, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1260, 360)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ShoeRackDecor" type="Node2D" parent="."]
+position = Vector2(1015, 598)
+
+[node name="Sprite2D" type="Sprite2D" parent="ShoeRackDecor"]
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("14_shoerack")
+
+[node name="Label" type="Label" parent="ShoeRackDecor"]
+offset_left = -52.0
+offset_top = -72.0
+offset_right = 52.0
+offset_bottom = -52.0
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ชั้นวางรองเท้า 👟"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SofaProp" type="Node2D" parent="."]
+position = Vector2(235, 584)
+
+[node name="Sprite2D" type="Sprite2D" parent="SofaProp"]
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("15_sofa")
+
+[node name="Label" type="Label" parent="SofaProp"]
+offset_left = -64.0
+offset_top = -86.0
+offset_right = 64.0
+offset_bottom = -66.0
+theme_override_colors/font_color = Color(0.8, 0.95, 1, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "โซฟานั่งเล่น (มุดใต้ได้)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BroomSpot" type="Node2D" parent="."]
+position = Vector2(345, 588)
+
+[node name="Sprite2D" type="Sprite2D" parent="BroomSpot"]
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("16_broom")
+
+[node name="Label" type="Label" parent="BroomSpot"]
+offset_left = -56.0
+offset_top = -78.0
+offset_right = 56.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(1, 0.95, 0.4, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "[E/Shift] กวาดพื้น 🧹"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MomNPC" type="Area2D" parent="."]
+position = Vector2(420, 580)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("13_npc")
+npc_name = "คุณแม่"
+portrait_path = "res://assets/characters/npcs/portrait_mom.png"
+dialog_lines = PackedStringArray("สวัสดีจ้ะลูกๆ ก่อนไปโรงเรียน ช่วยแม่เช็ดโต๊ะอาหารและหยิบไม้กวาดมากวาดพื้นบ้านให้เรียบร้อยทีนะจ๊ะเด็กดี!")
+quest_id = "q_home_table"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MomNPC"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="ColorRect" type="ColorRect" parent="MomNPC"]
+visible = false
+offset_left = -22.0
+offset_top = -50.0
+offset_right = 22.0
+offset_bottom = 50.0
+color = Color(0.95, 0.55, 0.7, 1)
+
+[node name="Label" type="Label" parent="MomNPC"]
+offset_left = -60.0
+offset_top = -75.0
+offset_right = 60.0
+offset_bottom = -55.0
+theme_override_font_size = 12
+text = "คุณแม่"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="MomNPC"]
+visible = false
+offset_left = -70.0
+offset_top = -112.0
+offset_right = 70.0
+offset_bottom = -92.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] คุยกับคุณแม่"
+horizontal_alignment = 1
+
+[node name="TableSpot" type="Node2D" parent="."]
+position = Vector2(530, 592)
+
+[node name="Sprite2D" type="Sprite2D" parent="TableSpot"]
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("17_table")
+
+[node name="Label" type="Label" parent="TableSpot"]
+offset_left = -68.0
+offset_top = -78.0
+offset_right = 68.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(1, 0.95, 0.4, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "[E/Shift] เช็ดโต๊ะอาหาร 🍽️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PushableChair" type="CharacterBody2D" parent="."]
+position = Vector2(675, 604)
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("8_chair")
+object_name = "เก้าอี้ไม้"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushableChair"]
+shape = SubResource("RectangleShape2D_chair")
+one_way_collision = true
+one_way_collision_margin = 12.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PushableChair"]
+position = Vector2(0, -10)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("18_chair3d")
+
+[node name="Label" type="Label" parent="PushableChair"]
+offset_left = -56.0
+offset_top = -68.0
+offset_right = 56.0
+offset_bottom = -48.0
+theme_override_colors/font_color = Color(1, 0.92, 0.6, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "เก้าอี้ไม้ 3D (ดันได้)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FridgePlatform" type="StaticBody2D" parent="."]
+position = Vector2(835, 455)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FridgePlatform"]
+shape = SubResource("RectangleShape2D_fridge")
+one_way_collision = true
+one_way_collision_margin = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="FridgePlatform"]
+position = Vector2(0, 92)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("19_fridge")
+
+[node name="Label" type="Label" parent="FridgePlatform"]
+offset_left = -48.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.85, 1, 0.95, 1)
+theme_override_font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ตู้เย็นพาสเทล ❄️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TrashBagItem" type="Node2D" parent="."]
+position = Vector2(850, 612)
+
+[node name="Sprite2D" type="Sprite2D" parent="TrashBagItem"]
+scale = Vector2(0.30, 0.30)
+texture = ExtResource("20_trashbag")
+
+[node name="Label" type="Label" parent="TrashBagItem"]
+offset_left = -64.0
+offset_top = -54.0
+offset_right = 64.0
+offset_bottom = -34.0
+theme_override_colors/font_color = Color(0.6, 1, 0.8, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "[E/Shift] ถุงขยะรีไซเคิล ♻️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DadNPC" type="Area2D" parent="."]
+position = Vector2(930, 580)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("13_npc")
+npc_name = "คุณพ่อ"
+portrait_path = "res://assets/characters/npcs/portrait_dad.png"
+dialog_lines = PackedStringArray("สวัสดีสองสาวน้อยคนเก่ง! ช่วยพ่อนำถุงขยะรีไซเคิลตรงนี้ไปทิ้งที่ถังหน้าบ้านทีนะลูก!")
+quest_id = "q_home_trash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DadNPC"]
+shape = SubResource("CircleShape2D_npc")
+
+[node name="ColorRect" type="ColorRect" parent="DadNPC"]
+visible = false
+offset_left = -22.0
+offset_top = -50.0
+offset_right = 22.0
+offset_bottom = 50.0
+color = Color(0.35, 0.6, 0.85, 1)
+
+[node name="Label" type="Label" parent="DadNPC"]
+offset_left = -60.0
+offset_top = -75.0
+offset_right = 60.0
+offset_bottom = -55.0
+theme_override_font_size = 12
+text = "คุณพ่อ"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="DadNPC"]
+visible = false
+offset_left = -70.0
+offset_top = -112.0
+offset_right = 70.0
+offset_bottom = -92.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_size = 11
+text = "[E/Shift] คุยกับคุณพ่อ"
+horizontal_alignment = 1
+
+[node name="TrashBinSpot" type="Node2D" parent="."]
+position = Vector2(1105, 596)
+
+[node name="Sprite2D" type="Sprite2D" parent="TrashBinSpot"]
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("21_trashbin")
+
+[node name="Label" type="Label" parent="TrashBinSpot"]
+offset_left = -60.0
+offset_top = -68.0
+offset_right = 60.0
+offset_bottom = -48.0
+theme_override_colors/font_color = Color(0.65, 1, 0.75, 1)
+theme_override_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tag")
+text = "ถังขยะรีไซเคิล 🗑️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PortalDoor" parent="." instance=ExtResource("5_portal")]
+position = Vector2(1190, 640)
+target_level = 2
+target_spawn_x = 100.0
+portal_name = "ประตูหน้าบ้าน"
+
+[node name="ItemKey" type="Area2D" parent="."]
+position = Vector2(835, 415)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_item")
+item_name = "กุญแจบ้าน"
+pickup_message = "หยิบ 'กุญแจบ้าน' บนหลังตู้เย็นได้แล้ว! รีบนำไปไขประตูหน้าบ้านเลย!"
+required_height_character = "player1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemKey"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="ItemKey"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_keytex")
+
+[node name="PromptLabel" type="Label" parent="ItemKey"]
+visible = false
+offset_left = -70.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = -30.0
+theme_override_font_size = 12
+text = "[E] เก็บกุญแจบ้าน"
+horizontal_alignment = 1
+
+[node name="ItemCard" type="Area2D" parent="."]
+visible = false
+position = Vector2(235, 622)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_item")
+item_name = "บัตรนักเรียน"
+pickup_message = "น้องปีใหม่มุดใต้โซฟาหยิบ 'บัตรนักเรียน' สำเร็จแล้ว!"
+requires_crawling = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemCard"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="ItemCard"]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("11_cardtex")
+
+[node name="PromptLabel" type="Label" parent="ItemCard"]
+visible = false
+offset_left = -80.0
+offset_top = -45.0
+offset_right = 80.0
+offset_bottom = -25.0
+theme_override_font_size = 11
+text = "[↓ + Shift] มุดเก็บใต้โซฟา"
+horizontal_alignment = 1
+
+[node name="ItemUmbrella" type="Area2D" parent="."]
+visible = false
+z_index = 5
+position = Vector2(235, 575)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_item")
+item_name = "ร่ม"
+pickup_message = "พี่ของขวัญหยิบ 'ร่มกันฝน' บนโซฟาห้องนั่งเล่นเรียบร้อยแล้ว!"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemUmbrella"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="Sprite2D" type="Sprite2D" parent="ItemUmbrella"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_umbtex")
+
+[node name="PromptLabel" type="Label" parent="ItemUmbrella"]
+visible = false
+offset_left = -60.0
+offset_top = -45.0
+offset_right = 60.0
+offset_bottom = -25.0
+theme_override_font_size = 11
+text = "[E] หยิบร่มกันฝน"
+horizontal_alignment = 1
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerKhongkwan" parent="Players" instance=ExtResource("3_p1")]
+position = Vector2(165, 640)
+
+[node name="PlayerPeemai" parent="Players" instance=ExtResource("4_p2")]
+position = Vector2(115, 640)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+limit_left = 0
+limit_top = 0
+limit_right = 1280
+limit_bottom = 720
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogModal" parent="." instance=ExtResource("7_dlg")]

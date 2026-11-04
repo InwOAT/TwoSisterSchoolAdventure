@@ -1,0 +1,145 @@
+[gd_scene load_steps=6 format=3 uid="uid://cminimap001"]
+
+[ext_resource type="Script" path="res://scripts/mini_map.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/school_map.png" id="2_maptex"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_minimap_frame"]
+bg_color = Color(0.07, 0.1, 0.18, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.82, 0.35, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_expand"]
+bg_color = Color(0.18, 0.45, 0.78, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.7, 0.9, 1, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 6.0
+content_margin_top = 1.0
+content_margin_right = 6.0
+content_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mapbox"]
+bg_color = Color(0.04, 0.06, 0.1, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.65, 0.9, 0.65)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="MiniMap" type="PanelContainer"]
+custom_minimum_size = Vector2(236, 190)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -248.0
+offset_top = 64.0
+offset_right = -12.0
+offset_bottom = 254.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_minimap_frame")
+script = ExtResource("1_script")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.92, 0.4, 1)
+theme_override_font_size = 11
+text = "🧭 แผนที่นำทาง (Mini Map)"
+
+[node name="BtnExpand" type="Button" parent="VBox/Header"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.95, 0.98, 1, 1)
+theme_override_font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_expand")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_expand")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_expand")
+text = "ขยาย [M] ↗"
+
+[node name="MapBox" type="Panel" parent="VBox"]
+custom_minimum_size = Vector2(220, 130)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_mapbox")
+
+[node name="MapTexture" type="TextureRect" parent="VBox/MapBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_maptex")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Marker" type="Control" parent="VBox/MapBox/MapTexture"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 110.0
+offset_top = 65.0
+offset_right = 110.0
+offset_bottom = 65.0
+
+[node name="Dot" type="ColorRect" parent="VBox/MapBox/MapTexture/Marker"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+pivot_offset = Vector2(6, 6)
+color = Color(1, 0.22, 0.25, 1)
+
+[node name="Tag" type="Label" parent="VBox/MapBox/MapTexture/Marker"]
+layout_mode = 0
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = -7.0
+theme_override_colors/font_color = Color(1, 0.98, 0.25, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_size = 10
+text = "📍เรา"
+horizontal_alignment = 1
+
+[node name="ZoneLabel" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.72, 1)
+theme_override_font_size = 11
+text = "📍 [จุด 24] หน้าโรงเรียน"
+horizontal_alignment = 1
+text_overrun_behavior = 3
